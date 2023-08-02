@@ -62,7 +62,12 @@ public class ExampleANAddon
                 double currentMana = manaCap.getCurrentMana();
                 double maxMana = manaCap.getMaxMana();
                 if (currentMana == maxMana) { return; }
-                if (currentTime - lastSleepTime > 20000){
+                if (currentTime < lastSleepTime) {
+                    manaCap.setMana(maxMana);
+                    sleepRegenCap.setTimeLastSlept(currentTime);
+                    player.sendSystemMessage(Component.translatable("The currents of time have been manipulated. After some rest your energy feels renewed."))
+                }
+                else if (currentTime - lastSleepTime > 20000){
                     manaCap.setMana(maxMana);
                     sleepRegenCap.setTimeLastSlept(currentTime);
                     player.sendSystemMessage(Component.translatable("After some rest your energy feels renewed. You can rest again once most of a day has passed"));
